@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.css" />
+  <link data-require="bootstrap@3.3.2" data-semver="3.3.2" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.js"></script>
+
+
+
+
+  
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body ng-app="app">
+    <div ng-cloak ng-controller='table' ng-init='getData()'>
+  <md-content>
+    <!-- when page loads we want user to immediately see portfolio -->
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <md-tab label="Founded Companies">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table">
+         <tbody>
+           <tr ng-repeat="row in founded_companies">
+             <td data-title="'Name'">{{ row.name }}</td>
+             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
+             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+
+
+      <md-tab label="Jobs">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table">
+         <tbody>
+           <tr ng-repeat="row in jobs">
+             <td data-title="'Name'">{{ row.name }}</td>
+             <td data-title="'Title'" >{{ row.title }}</td>
+             <td data-title="'Started On'">{{ row.started_on }}</td>
+             <td data-title="'Maximum Number of Employees'">{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+
+
+      <md-tab label="Investments">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table" >
+         <tbody>
+           <tr ng-repeat="row in investments">
+             <td data-title="'Name'"  >{{ row.name }}</td>
+             <td data-title="'Announced On'" >{{ row.announced_on }}</td>
+             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
+             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'" >{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+
+</div>
+    <script type="text/javascript">
+      var app=angular.module("app",["ngMaterial",'ngTable']);
+
+  app.controller('table', function($scope, $http,  $filter, $q, NgTableParams)  {
+    $scope.investment = [];
+    $scope.jobs = [];
+    $scope.affiliation = [];
+    var data;
+
+     $scope.names = [{id: "", title: ""}, {id: 'Moroni', title: 'Moroni'}, {id: 'Enos', title: 'Enos'}, {id: 'Nephi', title: 'Nephi'}];
+     $scope.tableParams = new NgTableParams( {data: data});
+
+    $scope.getData = function() {   //scope is the binding part between the HTML (view) and the JavaScript (controller).
+      // $http.get means go to that link and take the data
+      $http.get('https://api.crunchbase.com/v3.1/people/ashton-kutcher?user_key=2a3d08f3d5d44364196be2c6255e8187')
+        .then(function(res){
+          console.log(res.data.data);
+          // console.log("investments: " + res.data.data.relationships.investments.items);
+          // console.log("jobs: " + res.data.data.relationships.jobs.items);
+          // console.log("founded companies: " + res.data.data.relationships.founded_companies.items);
+
+          var founded_companies = res.data.data.relationships.founded_companies.items;
+          console.log(founded_companies);
+
+          for (var x = 0; x < founded_companies.length; x++) {
+            founded_companies[x].name = founded_companies[x].properties.name;
+            founded_companies[x].founded_on = founded_companies[x].properties.founded_on;
+            founded_companies[x].num_employees_max = founded_companies[x].properties.num_employees_max;
+            founded_companies[x].num_employees_min = founded_companies[x].properties.num_employees_min;
+          }
+//
+          $scope.founded_companies = founded_companies;
+          $scope.tableParams = new NgTableParams({page: 1, count: 10}, {data: founded_companies});
+          var investments = res.data.data.relationships.investments.items;
+          console.log(investments);
+
+
+          for (var x = 0; x < investments.length; x++) {
+            investments[x].name = investments[x].relationships.funding_round.relationships.funded_organization.properties.name;
+            investments[x].announced_on = investments[x].properties.announced_on;
+            investments[x].founded_on = investments[x].relationships.funding_round.relationships.funded_organization.properties.founded_on;
+            investments[x].num_employees_max = investments[x].relationships.funding_round.relationships.funded_organization.properties.num_employees_max;
+            investments[x].num_employees_min = investments[x].relationships.funding_round.relationships.funded_organization.properties.num_employees_min;
+          }
+//
+          $scope.investments = investments;
+
+          var jobs = res.data.data.relationships.jobs.items;
+          console.log(jobs);
+          for (var x = 0; x < jobs.length; x++) {
+            jobs[x].name = jobs[x].relationships.organization.properties.name;
+            jobs[x].title = jobs[x].properties.title;
+            jobs[x].started_on = jobs[x].properties.started_on;
+            jobs[x].num_employees_max = jobs[x].relationships.organization.properties.num_employees_max;
+            jobs[x].num_employees_min = jobs[x].relationships.organization.properties.num_employees_min;
+          }
+//
+          $scope.jobs = jobs;
+          // $scope.founded_companies = founded_companies;
+          // $scope.jobs = jobs;
+          //
+          // if(investments.lenght < pages){
+          //   http.get
+          // }
+
+        })
+      }
+  })
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.js"></script>
+  </body>
+</html>

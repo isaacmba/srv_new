@@ -1,0 +1,43 @@
+ <style type="text/css">
+     md-toolbar h1 {
+  font-size: 1.250em;
+  font-weight: 400;
+  margin: auto;
+}
+md-item p {
+  margin-top: 0;
+}
+ </style>
+
+ <md-toolbar layout="column"">
+      <h1>Hello</h1>
+    </md-toolbar>
+    <div layout="row" flex>
+        <div layout="column" flex id="content" ng-init="error=false">
+            <md-content layout="column" flex class="md-padding">
+              <md-button class="md-primary" linked-in ng-click="login()">Login</md-button>
+              <!-- TODO :-->
+              <!-- <md-button class="md-primary" ng-click="adminSignin($event)">Admin</md-button> -->
+              <br>
+              <hr>
+
+              <div ng-if="error" >
+                <div class="alert alert-danger">
+                   <a href="#" class="close" data-dismiss="alert" ng-click="error=false" aria-label="close">&times;</a>
+                    <strong>Error</strong> {{errormessage}}
+
+                      <input style="width: 30%;" ng-model="first" type="text" class="form-control" placeholder="First Name" aria-describedby="basic-addon2" flex="10">  
+                      <input style="width: 30%;" ng-model="last" type="text" class="form-control" placeholder="Last Name" aria-describedby="basic-addon2" flex="10">
+        
+                        <md-button ng-click="checkCB(name)">
+                        Check
+                      </md-button>
+                     
+                </div>
+                
+              </div>
+            </md-content>
+        </div>
+    </div>
+
+    

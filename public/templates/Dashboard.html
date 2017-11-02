@@ -1,0 +1,180 @@
+<div layout="vertical" >
+
+  
+  <md-sidenav  layout="column" style="height: 1100px;" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+            <md-list  flex>
+              <md-item ng-repeat="item in menu" md-ink-ripple>
+                <a ui-sref="{{item.ui}}">
+                  <md-item-content    class="sidenav-link">
+                    <div class="inset">
+                      <md-button class="md-no-focus">
+                        <i class="material-icons">{{item.icon}}</i>
+                      </md-button>
+                    </div>
+
+                  </md-item-content>
+                </a>
+              </md-item>
+               <md-item  md-ink-ripple >
+                <a href="http://localhost:9001/demos/Video-Broadcasting.html" target="blank">
+                    <md-item-content  layout-align="start center" class="sidenav-link">
+                    <div class="inset">
+                      <md-button class="md-no-focus" >
+                        <i class="material-icons" style="fill: #0275d8">lock</i>
+                      </md-button>
+                    </div>
+                   
+                  </md-item-content>
+                </a>
+             
+              </md-item> 
+            </md-list>
+  </md-sidenav>
+
+
+
+  <div layout="column"  flex layout-fill >
+
+              <md-toolbar style="background-color: white;">
+                <div class="md-toolbar-tools">
+                     <md-button md-ink-ripple>
+                        <i style="color:black" class="material-icons">search</i>
+                  </md-button>
+                  <md-input-container class="md-block"  flex="90">
+                          <label>Search Sessions</label>
+                          <input ng-model="sessionSearch">
+                    </md-input-container>
+
+                    <md-button ui-sref="profile" md-ink-ripple flex>
+                      <i style="color:black" class="material-icons">account_circle</i>
+                      
+                    </md-button>
+                </div>
+            </md-toolbar>   
+        <md-content>
+                
+            <div class="column" flex="40"><!-- upcoming sessions -->
+                 <div class="md-padding" > 
+                <h1 style="padding-left: 15px; ">Upcoming Sessions</h1>
+                </div>
+                  <div style="padding-left: 30px;padding-right: 30px;" layout="row">
+                    <div layout="row">
+
+                      <div class="parent" layout="column" ng-repeat="s in sessions | filter: sessionSearch track by $index" flex >
+                        <style type="text/css">
+                          .session{
+                            background-color: white;
+                            cursor: pointer;
+                            cursor: hand;
+                          }
+                          .session:hover{
+                            background-color: #DCDCDC;
+                            cursor: pointer;
+                            cursor: hand;
+                          }
+                        </style>
+                       <md-list-item class="md-padding">
+                        <md-card class="session"  ui-sref="waitingroom({id: s.id})">
+                          <md-card-content >
+                            <small>{{s.data.date}}</small>
+                            <p>{{s.data.title}}</p>
+                          </md-card-content>
+                          <div class="md-actions" layout="row" layout-align="start center">
+                            <md-button md-ink-ripple ng-disabled="true">
+                            <i  class="fa fa-heartbeat" aria-hidden="true"></i>
+                          </md-button>  
+                          <md-button >
+                             <small><a href="https://localhost:9001/demos/Video-Broadcasting.html#SRV" target="blank"></a>join</small>
+                          </md-button>    
+                          </div>       
+                        </md-card>
+                      </md-list-item>
+                      <div ng-show="!(sessions).length" >
+                        <STRONG>No sessions yet, wait for Joey B.</STRONG>
+                      </div>
+                      </div>
+
+                    </div>
+                    </div> 
+                </div><!-- upcoimg sessions end -->
+                     <div layout="column" style="padding-right: 30px;padding-left: 30px">
+                <div> 
+                    <h1 >Portfolio</h1>
+               </div>
+         
+               <div layout="row" flex>
+                  <md-input-container class="md-block"  style="width: 25%;"  class="md-icon-float md-block md-title">
+
+                          <label>See your Portfolio</label>
+                          <input ng-model="newUser" placeholder="Mark Cuban" layout="row">
+
+                    </md-input-container> 
+                    <div>
+                      <md-button  ng-click="getData(newUser)">
+                        <md-icon class="material-icons">search</md-icon>
+                      </md-button>
+                    </div>
+               </div>
+                 
+                       <div ng-cloak>
+                    <md-content>
+                        <md-tabs md-dynamic-height md-border-bottom>
+                            <md-tab label="Investments">
+                                <md-content class="md-padding">
+                                     <div class="row">
+                                        <div class="col-md-6">
+                                          <table ng-table="tableParams" class="table ">
+                                            <tr ng-repeat="i in investments">
+                                              <td data-title="'Name'" >{{i.name}}</td>
+                                              <td data-title="'$ Raised'" sortable="'money'">{{i.raised}}</td>
+                                              <td data-title="'# Employees'">{{i.minEmployees}} - {{i.maxEmployees}}</td>
+                                              <td data-title="'Description'">{{i.description}}</td>
+                                            </tr>
+                                          </table>
+                                        </div>
+                                      </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Founded Companies">
+                                <md-content class="md-padding">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                            <tr ng-repeat="c in founded_companies">
+                                              <td data-title="'Name'" sortable="'name'">{{c.properties.name}}</td>
+                                          
+                                              <td data-title="'# Employees'">{{c.properties.num_employees_min}} - {{c.properties.num_employees_max}}</td>
+                                              <td data-title="'Description'">{{c.properties.short_description}}</td>
+                                              <td data-title="'Founded'">{{c.properties.founded_on}}</td>
+                                            </tr>
+                                          </table>
+                                        </div>
+                                      </div>
+           
+                                </md-content>
+                            </md-tab>
+                    
+                    </md-tabs>
+                    </md-content>
+                </div> 
+   
+  
+      </div>
+            </md-content>
+    </div>
+
+<style type="text/css">
+    .portfolio {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    #input {
+      background-color: white;
+      max-width: 20%;
+    }
+</style>
+                  
+
+         
+</div>

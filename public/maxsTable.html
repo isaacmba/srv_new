@@ -1,0 +1,57 @@
+             <div ng-cloak ng-controller='table' ng-init='getData()'>
+  <md-content>
+    <!-- when page loads we want user to immediately see portfolio -->
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <md-tab label="Founded Companies">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table">
+         <tbody>
+           <tr ng-repeat="row in founded_companies">
+             <td data-title="'Name'">{{ row.name }}</td>
+             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
+             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+
+
+      <md-tab label="Jobs">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table">
+         <tbody>
+           <tr ng-repeat="row in jobs">
+             <td data-title="'Name'">{{ row.name }}</td>
+             <td data-title="'Title'" >{{ row.title }}</td>
+             <td data-title="'Started On'">{{ row.started_on }}</td>
+             <td data-title="'Maximum Number of Employees'">{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+
+
+      <md-tab label="Investments">
+        <md-content class="md-padding">
+          <table ng-table="tableParams" class="table" >
+         <tbody>
+           <tr ng-repeat="row in investments">
+             <td data-title="'Name'"  >{{ row.name }}</td>
+             <td data-title="'Announced On'" >{{ row.announced_on }}</td>
+             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
+             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
+             <td data-title="'Minimum Number of Employees'" >{{ row.num_employees_min }}</td>
+           </tr>
+         </tbody>
+       </table>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+  </div>
