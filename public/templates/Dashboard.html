@@ -86,7 +86,7 @@
 	                </md-tooltip>
                     </md-input-container> 
                     
-          			<md-button md-no-ink class="md-icon-button ""  flex>
+          			<md-button md-no-ink class="md-icon-button "  flex ng-click="showProfile()">
           				<!-- <p>your profile</p> -->
                       <i style="color:black; height: auto"  class="material-icons">person_pin</i>
                       
@@ -122,7 +122,7 @@
                         </style>
                        <md-list-item class="md-padding">
                         <md-card class="session" >
-                          <md-card-content>
+                          <md-card-content >
                             <small>{{s.data.date}}</small>
                             <p>{{s.data.title}}</p>
                           </md-card-content>
@@ -130,14 +130,14 @@
                             <md-button md-ink-ripple ng-disabled="true">
                             <i  class="fa fa-heartbeat" aria-hidden="true"></i>
                           </md-button>  
-                             <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv" target="_blank">
-                          <md-button >
+                             <a href="{{s.data.link}}">
+                          <md-button ng-disabled="{{s.data.disabled}}">
                   
                              <small>join</small>
                  			
                  			<md-tooltip
 					              md-direction="right">
-					              join this session
+					              {{s.data.message}}
 			                </md-tooltip>
                           </md-button>    
                         </a>
@@ -167,8 +167,8 @@
                   <!-- search for new data -->
                    <div layout="row" flex>
 
-                    <form ng-submit="getData(newUser)" >
-                      <md-input-container  flex="33"  md-no-float class="md-block">
+                    <form ng-submit="getData(newUser)">
+                      <md-input-container flex="33"  md-no-float class="md-block">
 
                               <!-- <label>See your Portfolio</label> -->
                               <input ng-model="newUser" placeholder="Mark Cuban">
@@ -179,12 +179,12 @@
                         </md-input-container> 
                         
                         </form>
-
                         <div >
-                          <md-button ng-disabled="true">
+                          <md-button md-no-ink ng-click="getData(newUser)">
                             <md-icon class="material-icons">search</md-icon>
                           </md-button>
                         </div>
+
 
                    </div>
                      
@@ -203,7 +203,7 @@
                                                 	<a>{{i.name}}</a>
                                                 	 <md-tooltip
 											              md-direction="top">
-											              click to see more
+											              click to compare
 									                </md-tooltip>
                                                 </td>
                                                 <td data-title="'$ Raised'" >{{i.raised}}</td>
@@ -215,6 +215,7 @@
                                         <!-- </div> -->
                                   </md-content>
                               </md-tab>
+
                               <md-tab label="Founded Companies">
                               
                                   <md-content class="md-padding">

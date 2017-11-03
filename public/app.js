@@ -1,5 +1,5 @@
 
-var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar']);
+var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar','ngTable']);
 
 // routing
 app.config(
@@ -61,7 +61,7 @@ app.config(
 )
 
 // dash controller
-app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,user,$location){
+app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,user,$location,NgTableParams){
 	$scope.error='true';
 	console.log(user);
 
@@ -99,7 +99,10 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     // $scope.founded_companies = [];
 
      $scope.show = function(x){
-     	console.log(x);
+     	alert('comparison functionality coming shortly');
+     }
+     $scope.showProfile = function(){
+     	alert('profile page coming shorty')
      }
      $scope.join = function(){
      	console.log("ccdjljff");
@@ -139,7 +142,11 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
           }
 
           $scope.investments = investments;
+    	},function(err){
+    		console.log(err);
+    		$scope.nameError = true;
     	})
+
     }
 
     crunch.getInfo('mark' , 'cuban')
