@@ -14,7 +14,7 @@ var database = {};
 // routes
 app.get('/', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('index.html');
+    res.sendFile('public/index.html');
 });
 app.get('/livestream', function(req,res){
 	res.sendFile('/public/livestream.html',{ root: __dirname });

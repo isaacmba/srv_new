@@ -55,7 +55,7 @@ app.config(
 				templateUrl: 'templates/admin.html'
 			})
 
-		// $urlRouterProvider.otherwise('dash');
+		$urlRouterProvider.otherwise('dash');
 
 	}
 )
