@@ -1,28 +1,31 @@
-<div layout="vertical">
-  <style type="text/css">
-  md-sidenav {
-    height: 1100px; 
-    width:70px; 
-    background-color: black;
-    float: left; 
-    text-align: center; 
-    vertical-align: center;
-    i{
-        position: relative;
-        padding-top: 1/*5px;
-        padding-bottom: 15px;*/ 
-      }
-  }
+<style type="text/css">
+	md-sidenav {
+		height: 1100px; 
+		width:70px; 
+		background-color: black;
+		float: left; 
+		text-align: center; 
+		vertical-align: center;
+		i{
+		    position: relative;
+		    padding-top: 1/*5px;
+		    padding-bottom: 15px;*/ 
+		  }
+	}
 
 </style>
-  <md-sidenav   layout="column" style="" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
-            <md-list>
+
+<!-- START OF SIDENAV -->
+
+  <md-sidenav   layout="column"  class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+            <md-list>  
+
               <md-item ng-repeat="item in menu" md-ink-ripple layout="column" class="md-padding">
-                  <a ui-sref="dash">
-                     <md-tooltip
-                    md-direction="right">
-                    Dashboard
-                  </md-tooltip>
+	                <a ui-sref="dash">
+                  	 <md-tooltip
+			              md-direction="right">
+			              Dashboard
+	                </md-tooltip>
                   <md-item-content >
                     <!-- <div class="inset"> -->
                       <!-- <md-button class="md-no-focus"> -->
@@ -30,15 +33,15 @@
                       <!-- </md-button> -->
                     <!-- </div> -->
                   </md-item-content>
-                  </a>
+	                </a>
               </md-item>
                <md-item  md-ink-ripple layout="column" class="md-padding"> 
               
-                    <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
-                        <md-tooltip
-                    md-direction="right">
-                    Admin
-                  </md-tooltip>
+		                <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
+		                	 	<md-tooltip
+			              md-direction="right">
+			              Admin
+	                </md-tooltip>
                     <md-item-content  layout-align="start center" class="sidenav-link">
                    <!--  <div class="inset"> -->
                       <!-- <md-button class="md-no-focus" > -->
@@ -47,67 +50,59 @@
                     <!-- </div> -->
                    
                   </md-item-content>
-                  </a>
+	                </a>
              
               </md-item> 
             </md-list>
   </md-sidenav>
-<!--   
-  <md-sidenav  layout="column" style="height: 1100px;" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
-            <md-list  flex>
-              <md-item ng-repeat="item in menu" md-ink-ripple>
-                <a ui-sref="{{item.ui}}">
-                  <md-item-content    class="sidenav-link">
-                    <div class="inset">
-                      <md-button class="md-no-focus">
-                        <i class="material-icons">{{item.icon}}</i>
-                      </md-button>
-                    </div>
 
-                  </md-item-content>
-                </a>
-              </md-item>
-               <md-item  md-ink-ripple >
-                <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
-                    <md-item-content  layout-align="start center" class="sidenav-link">
-                    <div class="inset">
-                      <md-button class="md-no-focus" >
-                        <i class="material-icons" style="fill: #0275d8">lock</i>
-                      </md-button>
-                    </div>
-                   
-                  </md-item-content>
-                </a>
-             
-              </md-item> 
-            </md-list>
-  </md-sidenav>
- -->
+<!-- END OF SIDENAV -->
 
+<!-- MAIN CONTENT -->
 
-  <div layout="column"  flex layout-fill >
+<md-content layout="column" flex>
 
-              <md-toolbar style="background-color: white;">
+				<style type="text/css">
+					#eyes{
+		padding-top: 12px;
+		min-height: 20px;
+	}
+				</style>
+
+<!-- TOOLDBAR START -->
+              <md-toolbar style="background-color: white;" >
                 <div class="md-toolbar-tools">
-                     <md-button md-ink-ripple>
-                        <i style="color:black" class="material-icons">search</i>
-                  </md-button>
-                  <md-input-container class="md-block"  flex="90">
-                          <label>Search Sessions</label>
-                          <input ng-model="sessionSearch">
-                    </md-input-container>
+                     <!-- <md-button md-ink-ripple> -->
+                        <!-- <i style="color:black" class="material-icons">search</i> -->
+                  <!-- </md-button> -->
+                   <md-input-container  md-no-float id="eyes" class="md-block"  flex-offset="5" flex="85">
+                   	<div id="eyes">
 
-                    <md-button ui-sref="profile" md-ink-ripple flex>
-                      <i style="color:black" class="material-icons">account_circle</i>
+                          <input ng-model="sessionSearch" placeholder="search sessions">
+                      </div>	
+                	<md-tooltip
+			              md-direction="bottom">
+			              search through upcoming sessions
+	                </md-tooltip>
+                    </md-input-container> 
+                    
+          			<md-button md-no-ink class="md-icon-button ""  flex>
+          				<!-- <p>your profile</p> -->
+                      <i style="color:black; height: auto"  class="material-icons">person_pin</i>
                       
+                    	<md-tooltip
+			              md-direction="bottom">
+			              your profile
+	                </md-tooltip>
                     </md-button>
                 </div>
-            </md-toolbar>   
-        <md-content>
-                
-            <div class="column" flex="40"><!-- upcoming sessions -->
-                 <div class="md-padding" > 
-                <h1 style="padding-left: 15px; ">Upcoming Sessions</h1>
+            </md-toolbar> 
+<!-- TOOLDBAR END -->
+
+<!-- UPCOMING SESSIONS START -->
+ 			<div class="column" flex="25"><!-- upcoming sessions -->
+                 <div style="padding-left: 30px"> 
+                <h1 >Upcoming Sessions</h1>
                 </div>
                   <div style="padding-left: 30px;padding-right: 30px;" layout="row">
                     <div layout="row">
@@ -116,17 +111,17 @@
                         <style type="text/css">
                           .session{
                             background-color: white;
+                            /*cursor: pointer;*/
+                            /*cursor: hand;*/
+                          }
+                          /*.session:hover{
+                         
                             cursor: pointer;
                             cursor: hand;
-                          }
-                          .session:hover{
-                            /*background-color: #DCDCDC;*/
-                            cursor: pointer;
-                            cursor: hand;
-                          }
+                          }*/
                         </style>
                        <md-list-item class="md-padding">
-                        <md-card class="session"  ui-sref="waitingroom({id: s.id})">
+                        <md-card class="session" >
                           <md-card-content>
                             <small>{{s.data.date}}</small>
                             <p>{{s.data.title}}</p>
@@ -135,102 +130,123 @@
                             <md-button md-ink-ripple ng-disabled="true">
                             <i  class="fa fa-heartbeat" aria-hidden="true"></i>
                           </md-button>  
-                            <!-- <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv" target="_blank"> -->
-                          <md-button ng-click="join()">
+                             <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv" target="_blank">
+                          <md-button >
                   
                              <small>join</small>
-                
+                 			
+                 			<md-tooltip
+					              md-direction="right">
+					              join this session
+			                </md-tooltip>
                           </md-button>    
-                        <!-- </a> -->
+                        </a>
                           </div>       
                         </md-card>
-                      </md-list-item>
-                      <div ng-show="!(sessions).length" >
+
+                        <div ng-show="!(sessions| filter: sessionSearch).length">
                         <STRONG>No sessions yet, wait for Joey B.</STRONG>
                       </div>
+                      </md-list-item>
+                      
                       </div>
 
                     </div>
                     </div> 
                 </div><!-- upcoimg sessions end -->
-                     <div layout="column" style="padding-right: 30px;padding-left: 30px">
-                <div> 
-                    <h1 >Portfolio</h1>
-               </div>
-         
-               <div layout="row" flex>
-                  <md-input-container class="md-block"  style="width: 25%;"  class="md-icon-float md-block md-title">
+           
 
-                          <label>See your Portfolio</label>
-                          <input ng-model="newUser" placeholder="Mark Cuban" layout="row">
+<!-- UPCOMING SESISONS END -->
 
-                    </md-input-container> 
-                    <div>
-                      <md-button  ng-click="getData(newUser)">
-                        <md-icon class="material-icons">search</md-icon>
-                      </md-button>
-                    </div>
-               </div>
-                 
-                       <div ng-cloak>
+<!-- PORTFOLIO START -->
+
+            <div layout="column" style="padding-right: 30px;padding-left: 30px">
+                  <div> 
+                      <h1 >Portfolio</h1>
+                 </div>
+                  <!-- search for new data -->
+                   <div layout="row" flex>
+
+                    <form ng-submit="getData(newUser)" >
+                      <md-input-container  flex="33"  md-no-float class="md-block">
+
+                              <!-- <label>See your Portfolio</label> -->
+                              <input ng-model="newUser" placeholder="Mark Cuban">
+                              <md-tooltip
+					              md-direction="top">
+					              enter your name, see your data
+			                </md-tooltip>
+                        </md-input-container> 
+                        
+                        </form>
+
+                        <div >
+                          <md-button ng-disabled="true">
+                            <md-icon class="material-icons">search</md-icon>
+                          </md-button>
+                        </div>
+
+                   </div>
+                     
+                  <div ng-cloak layout="column">
+                  
                     <md-content>
                         <md-tabs md-dynamic-height md-border-bottom>
-                            <md-tab label="Investments">
-                                <md-content class="md-padding">
-                                     <div class="row">
-                                        <div class="col-md-6">
-                                          <table ng-table="tableParams" class="table ">
-                                            <tr ng-repeat="i in investments">
-                                              <td data-title="'Name'" >{{i.name}}</td>
-                                              <td data-title="'$ Raised'" sortable="'money'">{{i.raised}}</td>
-                                              <td data-title="'# Employees'">{{i.minEmployees}} - {{i.maxEmployees}}</td>
-                                              <td data-title="'Description'">{{i.description}}</td>
-                                            </tr>
-                                          </table>
-                                        </div>
-                                      </div>
-                                </md-content>
-                            </md-tab>
-                            <md-tab label="Founded Companies">
-                                <md-content class="md-padding">
-                                      <div class="row">
-                                        <div class="col-md-6">
-                                          <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
-                                            <tr ng-repeat="c in founded_companies">
-                                              <td data-title="'Name'" sortable="'name'">{{c.properties.name}}</td>
-                                          
-                                              <td data-title="'# Employees'">{{c.properties.num_employees_min}} - {{c.properties.num_employees_max}}</td>
-                                              <td data-title="'Description'">{{c.properties.short_description}}</td>
-                                              <td data-title="'Founded'">{{c.properties.founded_on}}</td>
-                                            </tr>
-                                          </table>
-                                        </div>
-                                      </div>
-           
-                                </md-content>
-                            </md-tab>
-                    
-                    </md-tabs>
+                              <md-tab label="Investments">
+
+                                  <md-content class="md-padding">
+                                       <!-- <div class="row"> -->
+                                          <!-- <div class="col-md-6"> -->
+                                            <table ng-table="tableParams"  class="table table-condensed table-bordered table-striped">
+                                              <tr ng-repeat="i in investments" >
+                                                <td ng-click="show(i)" data-title="'Name'">
+                                                	<a>{{i.name}}</a>
+                                                	 <md-tooltip
+											              md-direction="top">
+											              click to see more
+									                </md-tooltip>
+                                                </td>
+                                                <td data-title="'$ Raised'" >{{i.raised}}</td>
+                                                <td data-title="'# Employees'">{{i.minEmployees}} - {{i.maxEmployees}}</td>
+                                                <td data-title="'Description'">{{i.description}}</td>
+                                              </tr>
+                                            </table>
+                                          <!-- </div> -->
+                                        <!-- </div> -->
+                                  </md-content>
+                              </md-tab>
+                              <md-tab label="Founded Companies">
+                              
+                                  <md-content class="md-padding">
+                                        <!-- <div class="row"> -->
+                                          <!-- <div class="col-md-6"> -->
+                                            <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                              <tr ng-repeat="c in founded_companies" >
+                                                <td ng-click="show(c)" data-title="'Name'" ><a>{{c.properties.name}}</a>
+                                                 <md-tooltip
+											              md-direction="top">
+											              click to see more
+									                </md-tooltip>
+									            </td>
+                                            	
+                                                <td data-title="'# Employees'">{{c.properties.num_employees_min}} - {{c.properties.num_employees_max}}</td>
+                                                <td data-title="'Description'">{{c.properties.short_description}}</td>
+                                                <td data-title="'Founded'">{{c.properties.founded_on}}</td>
+                                              </tr>
+                                            </table>
+                                          <!-- </div> -->
+                                        <!-- </div> -->
+             
+                                  </md-content>
+                              </md-tab>
+                        </md-tabs>
                     </md-content>
                 </div> 
    
   
       </div>
-            </md-content>
-    </div>
 
-<style type="text/css">
-    .portfolio {
-      padding-left: 30px;
-      padding-right: 30px;
-    }
 
-    #input {
-      background-color: white;
-      max-width: 20%;
-    }
-</style>
-                  
-
-         
-</div>
+<!-- PORTFOLIO END -->
+</md-content>
+<!-- END OF CONTENT -->

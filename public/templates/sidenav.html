@@ -1,20 +1,4 @@
-<style type="text/css">
-	md-sidenav {
-		height: 1100px; 
-		width:70px; 
-		background-color: black;
-		float: left; 
-		text-align: center; 
-		vertical-align: center;
-		i{
-		    position: relative;
-		    padding-top: 1/*5px;
-		    padding-bottom: 15px;*/ 
-		  }
-	}
-
-</style>
-  <md-sidenav   layout="column" style="" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+ <md-sidenav   layout="column" style="" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
             <md-list>
               <md-item ng-repeat="item in menu" md-ink-ripple layout="column" class="md-padding">
 	                <a ui-sref="dash">
@@ -51,31 +35,3 @@
               </md-item> 
             </md-list>
   </md-sidenav>
-<md-content layout="column" flex>
-
-				<style type="text/css">
-					#eyes{
-		padding-top: 12px;
-		min-height: 20px;
-	}
-				</style>
-
-              <md-toolbar style="background-color: white;" >
-                <div class="md-toolbar-tools">
-                     <md-button md-ink-ripple>
-                        <i style="color:black" class="material-icons">search</i>
-                  </md-button>
-                  <md-input-container    flex="90">
-                          <label>Search Sessions</label>
-                          <input ng-model="sessionSearch" id="eyes">
-                    </md-input-container>
-
-                    <md-button ui-sref="profile" md-ink-ripple flex>
-                      <i style="color:black" class="material-icons">account_circle</i>
-                      
-                    </md-button>
-                </div>
-            </md-toolbar> 
-
-
-</md-content>

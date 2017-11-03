@@ -1,5 +1,5 @@
 
-var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar','ngTable']);
+var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar']);
 
 // routing
 app.config(
@@ -55,14 +55,14 @@ app.config(
 				templateUrl: 'templates/admin.html'
 			})
 
-		$urlRouterProvider.otherwise('dash');
+		// $urlRouterProvider.otherwise('dash');
 
 	}
 )
 
 // dash controller
-app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,user,NgTableParams,$location){
-
+app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,user,$location){
+	$scope.error='true';
 	console.log(user);
 
 	$scope.sessions = dash.upcoming;
@@ -97,14 +97,15 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     ]
     // $scope.investments = [];
     // $scope.founded_companies = [];
-     $scope.tableParams = new NgTableParams({
-      // initial sort order
-      sorting: { name: "asc" } 
-    });
 
+     $scope.show = function(x){
+     	console.log(x);
+     }
      $scope.join = function(){
      	console.log("ccdjljff");
-     	// $location.url('https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv','blank');
+     	// $location.url('');
+     $location.url('https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html','blank');
+                $scope.$apply();
      }
 
     $scope.getData = function(name){
