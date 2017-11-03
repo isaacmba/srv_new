@@ -37,14 +37,14 @@ app.config(
 				controller:'ProfileC',
 				templateUrl: 'templates/profile.html'
 			})
-			.state('dash.search',{
-				url:'/dash',
-				controller:'SearchController',
-				templateUrl: 'templates/search.html'
-			})			
-			.state('dash.waitingroom',{
+			// .state('dash.search',{
+			// 	url:'/dash',
+			// 	controller:'SearchController',
+			// 	templateUrl: 'templates/search.html'
+			// })			
+			.state('waitingroom',{
 				url:'/dash/waitingroom',
-				controller:'waitingroom',
+				controller:'DashC',
 				templateUrl: 'templates/waitingroom.html'
 			})
 			// .state('dash.compare')
@@ -103,7 +103,8 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     });
 
      $scope.join = function(){
-     	$location.url('http://localhost:9001/demos/Video-Broadcasting.html#SRV');
+     	console.log("ccdjljff");
+     	// $location.url('https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv','blank');
      }
 
     $scope.getData = function(name){
@@ -121,7 +122,7 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
             founded_companies[x].num_employees_max = founded_companies[x].properties.num_employees_max;
             founded_companies[x].num_employees_min = founded_companies[x].properties.num_employees_min;
           }
-//
+
           $scope.founded_companies = founded_companies;
           $scope.tableParams = new NgTableParams( {data: founded_companies});
           var investments = res.data.data.relationships.investments.items;
@@ -135,7 +136,7 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     		investments[i].name = investments[i].relationships.invested_in.properties.name;
     		investments[i].description = investments[i].relationships.invested_in.properties.short_description;
           }
-//
+
           $scope.investments = investments;
     	})
     }
@@ -204,7 +205,7 @@ app.controller('LoginC', function($scope, $mdDialog, $state, crunch, socialLogin
 
 		// api call
 		// crunch.getInfo(user.first,user.last)
-		crunch.getInfo('mark' , 'cuban')
+		crunch.getInfo(user.first , user.last)
 			.then(function(response){
 				console.log("STATUS:  "+response.status);
 				// user.user = data.data;

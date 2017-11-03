@@ -1,6 +1,58 @@
-<div layout="vertical" >
+<div layout="vertical">
+  <style type="text/css">
+  md-sidenav {
+    height: 1100px; 
+    width:70px; 
+    background-color: black;
+    float: left; 
+    text-align: center; 
+    vertical-align: center;
+    i{
+        position: relative;
+        padding-top: 1/*5px;
+        padding-bottom: 15px;*/ 
+      }
+  }
 
-  
+</style>
+  <md-sidenav   layout="column" style="" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+            <md-list>
+              <md-item ng-repeat="item in menu" md-ink-ripple layout="column" class="md-padding">
+                  <a ui-sref="dash">
+                     <md-tooltip
+                    md-direction="right">
+                    Dashboard
+                  </md-tooltip>
+                  <md-item-content >
+                    <!-- <div class="inset"> -->
+                      <!-- <md-button class="md-no-focus"> -->
+                        <i class="material-icons">{{item.icon}}</i>
+                      <!-- </md-button> -->
+                    <!-- </div> -->
+                  </md-item-content>
+                  </a>
+              </md-item>
+               <md-item  md-ink-ripple layout="column" class="md-padding"> 
+              
+                    <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
+                        <md-tooltip
+                    md-direction="right">
+                    Admin
+                  </md-tooltip>
+                    <md-item-content  layout-align="start center" class="sidenav-link">
+                   <!--  <div class="inset"> -->
+                      <!-- <md-button class="md-no-focus" > -->
+                        <i class="material-icons" style="fill: #0275d8">lock</i>
+                      <!-- </md-button> -->
+                    <!-- </div> -->
+                   
+                  </md-item-content>
+                  </a>
+             
+              </md-item> 
+            </md-list>
+  </md-sidenav>
+<!--   
   <md-sidenav  layout="column" style="height: 1100px;" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
             <md-list  flex>
               <md-item ng-repeat="item in menu" md-ink-ripple>
@@ -30,7 +82,7 @@
               </md-item> 
             </md-list>
   </md-sidenav>
-
+ -->
 
 
   <div layout="column"  flex layout-fill >
@@ -68,14 +120,14 @@
                             cursor: hand;
                           }
                           .session:hover{
-                            background-color: #DCDCDC;
+                            /*background-color: #DCDCDC;*/
                             cursor: pointer;
                             cursor: hand;
                           }
                         </style>
                        <md-list-item class="md-padding">
                         <md-card class="session"  ui-sref="waitingroom({id: s.id})">
-                          <md-card-content >
+                          <md-card-content>
                             <small>{{s.data.date}}</small>
                             <p>{{s.data.title}}</p>
                           </md-card-content>
@@ -83,9 +135,13 @@
                             <md-button md-ink-ripple ng-disabled="true">
                             <i  class="fa fa-heartbeat" aria-hidden="true"></i>
                           </md-button>  
-                          <md-button >
-                             <small><a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv" target="blank">join</a></small>
+                            <!-- <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html#srv" target="_blank"> -->
+                          <md-button ng-click="join()">
+                  
+                             <small>join</small>
+                
                           </md-button>    
+                        <!-- </a> -->
                           </div>       
                         </md-card>
                       </md-list-item>

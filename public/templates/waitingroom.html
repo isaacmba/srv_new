@@ -1,42 +1,81 @@
-<div class="column" flex>
-	 <div class="md-padding" layout= "row"> 
-	 	<div flex>
-			
-				<center>
-					<!-- <img src="../images/logo2.png" style="width:150px;height:150px;"> -->
-					<h1>LOGO
-						HERE</h1>
-					<h4>Welcome, Todd Chavez</h4>
-					<h2>Title of Session Here</h2>
-					<small><b><h3>SESSION WILL BEGIN IN</h3></b></small>
-					<h1 style="color:#0275d8;">04:00</h1>
-				</center>
+<style type="text/css">
+	md-sidenav {
+		height: 1100px; 
+		width:70px; 
+		background-color: black;
+		float: left; 
+		text-align: center; 
+		vertical-align: center;
+		i{
+		    position: relative;
+		    padding-top: 1/*5px;
+		    padding-bottom: 15px;*/ 
+		  }
+	}
+
+</style>
+  <md-sidenav   layout="column" style="" class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+            <md-list>
+              <md-item ng-repeat="item in menu" md-ink-ripple layout="column" class="md-padding">
+	                <a ui-sref="dash">
+                  	 <md-tooltip
+			              md-direction="right">
+			              Dashboard
+	                </md-tooltip>
+                  <md-item-content >
+                    <!-- <div class="inset"> -->
+                      <!-- <md-button class="md-no-focus"> -->
+                        <i class="material-icons">{{item.icon}}</i>
+                      <!-- </md-button> -->
+                    <!-- </div> -->
+                  </md-item-content>
+	                </a>
+              </md-item>
+               <md-item  md-ink-ripple layout="column" class="md-padding"> 
+              
+		                <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
+		                	 	<md-tooltip
+			              md-direction="right">
+			              Admin
+	                </md-tooltip>
+                    <md-item-content  layout-align="start center" class="sidenav-link">
+                   <!--  <div class="inset"> -->
+                      <!-- <md-button class="md-no-focus" > -->
+                        <i class="material-icons" style="fill: #0275d8">lock</i>
+                      <!-- </md-button> -->
+                    <!-- </div> -->
+                   
+                  </md-item-content>
+	                </a>
+             
+              </md-item> 
+            </md-list>
+  </md-sidenav>
+<md-content layout="column" flex>
+
+				<style type="text/css">
+					#eyes{
+		padding-top: 12px;
+		min-height: 20px;
+	}
+				</style>
+
+              <md-toolbar style="background-color: white;" >
+                <div class="md-toolbar-tools">
+                     <md-button md-ink-ripple>
+                        <i style="color:black" class="material-icons">search</i>
+                  </md-button>
+                  <md-input-container    flex="90">
+                          <label>Search Sessions</label>
+                          <input ng-model="sessionSearch" id="eyes">
+                    </md-input-container>
+
+                    <md-button ui-sref="profile" md-ink-ripple flex>
+                      <i style="color:black" class="material-icons">account_circle</i>
+                      
+                    </md-button>
+                </div>
+            </md-toolbar> 
 
 
-		</div>
-	</div>
-	<div class="md-padding" layout="row" style="padding-left: 20%; padding-right: 20%; ">
-		<md-content>
-			<div flex>
-				<h3 >UPCOMING</h3>
-			
-			 <div layout="row" flex>
-      			<div class="parent" layout="column" ng-repeat="u in upcoming track b $index" flex="25" flex-gt-sm="50"  >
-				<md-card >
-		          <md-card-content >
-		            <small>{{u.data.date}}</small>
-		            <p>{{u.data.title}}</p>
-		          </md-card-content>
-		          <div class="md-actions" layout="row" layout-align="start center">
-		            <md-button md-ink-ripple>
-		            <i  class="fa fa-heartbeat" aria-hidden="true"></i>
-		          </md-button>  
-		          <md-button md-ink-ripple>
-		          	<i ng-click="addSession(u.id)" class="material-icons">today</i>
-		          </md-button>           
-		        </md-card>
-			</div>
-			</div>
-		</md-content>
-	</div>
-</div>
+</md-content>
