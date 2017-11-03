@@ -28,6 +28,7 @@ app.get('/table', function(req,res){
 	res.sendFile('/public/table');
 })
 
+var port = process.env.PORT || 4000;
+app.listen(port);
 
-app.listen(process.env.PORT || '4000');
-console.log('listening on port 4000');
+console.log('listening on ' + port );
