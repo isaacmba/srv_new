@@ -1,5 +1,6 @@
 var express = require('express'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	bodyParser = require('body-parser');
 	// User = require('/User');
 
 var app = express();
@@ -8,6 +9,8 @@ var app = express();
 
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var database = {};
 
@@ -17,12 +20,15 @@ app.get('/', function(req, res, next) {
     res.sendFile('public/index.html');
 });
 app.get('/livestream', function(req,res){
-	res.sendFile('/public/livestream.html',{ root: __dirname });
-})
-app.get('/database', function(req,res){
-	res.json(database);
-})
+	res.sendFile('/public/livestream.html', { root: __dirname });
+});
+app.get('/data', function(req,res){
+	database = req;
+	console.log("hereeee   "+ database);
+	// res.send(database);
+	// return database;
 
+});
 
 app.get('/table', function(req,res){
 	res.sendFile('/public/table');

@@ -8,30 +8,33 @@ app.factory('crunch',function($http){
 		getInfo : function(first,last){
 			return $http.get('https://api.crunchbase.com/v3.1/people/'+first+'-'+last+'?user_key=2a3d08f3d5d44364196be2c6255e8187')
 				.then(function(response){
-					console.log(response);
-
+					// console.log(response);
 					return response;
 				})
 
-			// .then(function(success, fail){
-			// 	console.log(res.data);
-			// 	var I = res.data.data.relationships.investments.items;
-			// 	console.log(I);
-
-			// 	for (var i = 0; i < I.length; i++) {
-			// 		I[i].name = I[i].relationships.invested_in.properties.name;
-			// 		I[i].employeeMin = I[i].relationships.invested_in.properties.num_employees_min;
-			// 		I[i].employeeMax = I[i].relationships.invested_in.properties.num_employees_max; 
-			// 		I[i].moneyRaised = I[i].relationships.funding_round.properties.money_raised;
-					
-
-			// 	}
-			// 	console.log(I);
-			// 	return I;
-			// })
 		},
 
-		// compareTwo
+		getInvestments : function(first,last){
+			return $http.get('https://api.crunchbase.com/v3.1/people/'+first+'-'+last+'/investments?user_key=2a3d08f3d5d44364196be2c6255e8187')
+				.then(function(res){
+					// console.log(res);
+					return res;
+				})
+		},
+		getFounded_Companies : function(first,last){
+			return $http.get('https://api.crunchbase.com/v3.1/people/'+first+'-'+last+'/founded_companies?user_key=2a3d08f3d5d44364196be2c6255e8187')
+				.then(function(res){
+					// console.log(res);
+					// save user as curret user in 'db' var
+					return res;
+				})
+		} ,   
+		saveUser: function(name){ 
+			return $http.get('/data', name)
+				.then(function(req,res){
+					return res
+				},function(err){})
+		}        
 	}
 
 });

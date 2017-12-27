@@ -1,80 +1,168 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.css" />
-  <link data-require="bootstrap@3.3.2" data-semver="3.3.2" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/0.8.3/ng-table.min.js"></script>
 
-
-
-
+    <!-- <div ng-cloak ng-controller='table' ng-init='getData()'> -->
+ 
+    <div ng-controller="ExampleController12" layout-margin>
+  <div style="font-size: 12px;padding:5px;margin:0; line-height:18px; border: 1px solid #c4c4c4;background: white;">
+    <ng-md-icon icon="info" size="16" style="float:left;fill:#479BFF;margin-right: 5px;"></ng-md-icon> 
+    <span><i>Selectable Rows Callback</i> feature let you provide callbacks when a selection event happens, providing all the information about the selected rows.</span>
+  </div>
   
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body ng-app="app">
-    <div ng-cloak ng-controller='table' ng-init='getData()'>
-  <md-content>
-    <!-- when page loads we want user to immediately see portfolio -->
-    <md-tabs md-dynamic-height md-border-bottom>
-
-      <md-tab label="Founded Companies">
-        <md-content class="md-padding">
-          <table ng-table="tableParams" class="table">
-         <tbody>
-           <tr ng-repeat="row in founded_companies">
-             <td data-title="'Name'">{{ row.name }}</td>
-             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
-             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
-             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
-           </tr>
-         </tbody>
-       </table>
-        </md-content>
-      </md-tab>
-
-
-      <md-tab label="Jobs">
-        <md-content class="md-padding">
-          <table ng-table="tableParams" class="table">
-         <tbody>
-           <tr ng-repeat="row in jobs">
-             <td data-title="'Name'">{{ row.name }}</td>
-             <td data-title="'Title'" >{{ row.title }}</td>
-             <td data-title="'Started On'">{{ row.started_on }}</td>
-             <td data-title="'Maximum Number of Employees'">{{ row.num_employees_max }}</td>
-             <td data-title="'Minimum Number of Employees'">{{ row.num_employees_min }}</td>
-           </tr>
-         </tbody>
-       </table>
-        </md-content>
-      </md-tab>
-
-
-      <md-tab label="Investments">
-        <md-content class="md-padding">
-          <table ng-table="tableParams" class="table" >
-         <tbody>
-           <tr ng-repeat="row in investments">
-             <td data-title="'Name'"  >{{ row.name }}</td>
-             <td data-title="'Announced On'" >{{ row.announced_on }}</td>
-             <td data-title="'Founded On'" >{{ row.founded_on }}</td>
-             <td data-title="'Maximum Number of Employees'" >{{ row.num_employees_max }}</td>
-             <td data-title="'Minimum Number of Employees'" >{{ row.num_employees_min }}</td>
-           </tr>
-         </tbody>
-       </table>
-        </md-content>
-      </md-tab>
-    </md-tabs>
-  </md-content>
-
-
+  <mdt-table table-card="{visible: true, title: 'Nutritions'}"
+             selectable-rows="true"
+             alternate-headers="'contextual'"
+             selected-row-callback="selectedRowCallback(rows)"
+             mdt-row="{
+                      data: nutritionList,
+                      'table-row-id-key': 'id',
+                      'column-keys': [
+                          'name',
+                          'calories',
+                          'fat',
+                          'carbs',
+                          'protein',
+                          'sodium',
+                          'calcium',
+                          'iron'
+                      ]
+                      }">
+    <mdt-header-row>
+      <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+      <mdt-column align-rule="right">Calories</mdt-column>
+      <mdt-column align-rule="right">Fat (g)</mdt-column>
+      <mdt-column align-rule="right">Carbs (g)</mdt-column>
+      <mdt-column align-rule="right">Protein (g)</mdt-column>
+      <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+      <mdt-column align-rule="right">Calcium (%)</mdt-column>
+      <mdt-column align-rule="right">Iron (%)</mdt-column>
+    </mdt-header-row>
+  </mdt-table>
 </div>
+
     <script type="text/javascript">
-      var app=angular.module("app",["ngMaterial",'ngTable']);
+      // var app=angular.module("tableApp",["ngMaterial",'mdDataTable']);
+
+   app.controller('ExampleController12', function($scope, $mdToast){
+        $scope.selectedRowCallback = function(rows){
+            $mdToast.show(
+                $mdToast.simple()
+                    .content('Selected row id(s): '+rows)
+                    .hideDelay(3000)
+            );
+        };
+
+        $scope.nutritionList = [
+            {
+                id: 601,
+                name: 'Frozen joghurt',
+                calories: 159,
+                fat: 6.0,
+                carbs: 24,
+                protein: 4.0,
+                sodium: 87,
+                calcium: '14%',
+                iron: '1%'
+            },
+            {
+                id: 602,
+                name: 'Ice cream sandwitch',
+                calories: 237,
+                fat: 9.0,
+                carbs: 37,
+                protein: 4.3,
+                sodium: 129,
+                calcium: '84%',
+                iron: '1%'
+            },
+            {
+                id: 603,
+                name: 'Eclair',
+                calories: 262,
+                fat: 16.0,
+                carbs: 24,
+                protein: 6.0,
+                sodium: 337,
+                calcium: '6%',
+                iron: '7%'
+            },
+            {
+                id: 604,
+                name: 'Cupkake',
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+                sodium: 413,
+                calcium: '3%',
+                iron: '8%'
+            },
+            {
+                id: 605,
+                name: 'Gingerbread',
+                calories: 356,
+                fat: 16.0,
+                carbs: 49,
+                protein: 2.9,
+                sodium: 327,
+                calcium: '7%',
+                iron: '16%'
+            },
+            {
+                id: 606,
+                name: 'Jelly bean',
+                calories: 375,
+                fat: 0.0,
+                carbs: 94,
+                protein: 0.0,
+                sodium: 50,
+                calcium: '0%',
+                iron: '0%'
+            },
+            {
+                id: 607,
+                name: 'Lollipop',
+                calories: 392,
+                fat: 0.2,
+                carbs: 98,
+                protein: 0,
+                sodium: 38,
+                calcium: '0%',
+                iron: '2%'
+            },
+            {
+                id: 608,
+                name: 'Honeycomb',
+                calories: 408,
+                fat: 3.2,
+                carbs: 87,
+                protein: 6.5,
+                sodium: 562,
+                calcium: '0%',
+                iron: '45%'
+            },
+            {
+                id: 609,
+                name: 'Donut',
+                calories: 452,
+                fat: 25.0,
+                carbs: 51,
+                protein: 4.9,
+                sodium: 326,
+                calcium: '2%',
+                iron: '22%'
+            },
+            {
+                id: 610,
+                name: 'KitKat',
+                calories: 518,
+                fat: 26.0,
+                carbs: 65,
+                protein: 7,
+                sodium: 54,
+                calcium: '12%',
+                iron: '6%'
+            }
+        ];
+    });
 
   app.controller('table', function($scope, $http,  $filter, $q, NgTableParams)  {
     $scope.investment = [];
@@ -143,8 +231,4 @@
   })
 
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-aria.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.js"></script>
-  </body>
-</html>
+

@@ -1,5 +1,5 @@
 
-var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar','ngTable']);
+var app = angular.module('app', ["ngMaterial","ngMdIcons","ui.router", "socialLogin",'angular-loading-bar','ngTable','ngSanitize','mdDataTable']);
 
 // routing
 app.config(
@@ -36,7 +36,16 @@ app.config(
 				url:'/profile',
 				controller:'ProfileC',
 				templateUrl: 'templates/profile.html'
+			})	
+			.state('compare',{
+				url:'/dash/compare',
+				controller:'CompareController',
+				templateUrl: 'templates/compare.html',
+				params: {
+					data: null
+				}
 			})
+
 			// .state('dash.search',{
 			// 	url:'/dash',
 			// 	controller:'SearchController',
@@ -59,12 +68,22 @@ app.config(
 
 	}
 )
+app.controller('CompareController', function($scope, crunch,$stateParams,$mdToast,$state){
+	if($stateParams.data=="undefined"){
+		$state.go('dash');
+	}
+	console.log($stateParams);
+})
 
 // dash controller
 app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,user,$location,NgTableParams){
+	var name_var = "mark cuban";
 	$scope.error='true';
-	console.log(user);
-
+	// console.log(user);
+    $scope.leftOpen = true;
+    // crunch.getInfo('ashton','kutcher');
+    crunch.getInvestments('ashton','kutcher');
+    crunch.getFounded_Companies('ashton','kutcher');
 	$scope.sessions = dash.upcoming;
 	// 	console.log($scope.user.uid);
 
@@ -98,50 +117,80 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     // $scope.investments = [];
     // $scope.founded_companies = [];
 
-     $scope.show = function(x){
-     	alert('comparison functionality coming shortly');
+     $scope.compare = function(x){
+     	console.log(x);
+     	// alert('comparison functionality coming shortly');
+     	$state.go('compare',{data:x});
      }
      $scope.showProfile = function(){
-     	alert('profile page coming shorty')
+     	alert('profile page coming shortly')
      }
      $scope.join = function(){
-     	console.log("ccdjljff");
-     	// $location.url('');
-     $location.url('https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html','blank');
-                $scope.$apply();
+		$location.url('https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html','blank');
+        $scope.$apply();
+     }
+
+     function splitname(full){
+     	var first = full.split(' ').slice(0, -1).join(' ');
+    	var last = full.split(' ').slice(-1).join(' ');
+    	return [first,last]
      }
 
     $scope.getData = function(name){
-    	var first = name.split(' ').slice(0, -1).join(' ');
-    	var last = name.split(' ').slice(-1).join(' ');
-    	crunch.getInfo(first,last)
+    	name_var = name;
+    	var fullname = splitname(name);
+    	// console.log(fullname);
+    	// console.log(name);
+   		crunch.saveUser(name);
+    	///////////// new code 
+    	// crunch.getInvestments(fullname[0], fullname[1]).then(function(res){
+    	// 	var investments = res.data.data.items;
+    	// 	// filter
+    	// 	for(var i = 0; i < investments.length; i++ ){
+	    // 		investments[i].raised = investments[i].relationships.funding_round.properties.money_raised;
+	    // 		investments[i].minEmployees = investments[i].relationships.invested_in.properties.num_employees_min;
+	    // 		investments[i].maxEmployees = investments[i].relationships.invested_in.properties.num_employees_max;
+	    // 		investments[i].name = investments[i].relationships.invested_in.properties.name;
+	    // 		investments[i].description = investments[i].relationships.invested_in.properties.short_description;	
+	    // 	}
+    	// 	console.log(investments);
+    	// 	$scope.investments = investments;
+
+
+    	// },function(err){})
+    	////////////////////
+
+
+    	crunch.getInfo(fullname[0],fullname[1])
     		.then(function(res){
     			console.log(res.data);
-    			    var founded_companies = res.data.data.relationships.founded_companies.items;
-          console.log(founded_companies);
+    			var founded_companies = res.data.data.relationships.founded_companies.items;
+				console.log(founded_companies);
 
-          for (var x = 0; x < founded_companies.length; x++) {
-            founded_companies[x].name = founded_companies[x].properties.name;
-            founded_companies[x].founded_on = founded_companies[x].properties.founded_on;
-            founded_companies[x].num_employees_max = founded_companies[x].properties.num_employees_max;
-            founded_companies[x].num_employees_min = founded_companies[x].properties.num_employees_min;
-          }
+		          for (var x = 0; x < founded_companies.length; x++) {
+		            founded_companies[x].name = founded_companies[x].properties.name;
+		            founded_companies[x].founded_on = founded_companies[x].properties.founded_on;
+		            founded_companies[x].num_employees_max = founded_companies[x].properties.num_employees_max;
+		            founded_companies[x].num_employees_min = founded_companies[x].properties.num_employees_min;
+		          }
 
-          $scope.founded_companies = founded_companies;
-          $scope.tableParams = new NgTableParams( {data: founded_companies});
-          var investments = res.data.data.relationships.investments.items;
-          console.log(investments);
+		          $scope.founded_companies = founded_companies;
+		          $scope.tableParams = new NgTableParams( {data: founded_companies});
+		          var investments = res.data.data.relationships.investments.items;
+		          console.log(investments);
 
 
-          for (var i = 0; i < investments.length; i++) {
-            investments[i].raised = investments[i].relationships.funding_round.properties.money_raised;
-    		investments[i].minEmployees = investments[i].relationships.invested_in.properties.num_employees_min;
-    		investments[i].maxEmployees = investments[i].relationships.invested_in.properties.num_employees_max;
-    		investments[i].name = investments[i].relationships.invested_in.properties.name;
-    		investments[i].description = investments[i].relationships.invested_in.properties.short_description;
-          }
+		          for (var i = 0; i < investments.length; i++) {
+		            investments[i].raised = investments[i].relationships.funding_round.properties.money_raised;
+		    		investments[i].minEmployees = investments[i].relationships.invested_in.properties.num_employees_min;
+		    		investments[i].maxEmployees = investments[i].relationships.invested_in.properties.num_employees_max;
+		    		investments[i].name = investments[i].relationships.invested_in.properties.name;
+		    		investments[i].description = investments[i].relationships.invested_in.properties.short_description;
+		    		investments[i].permalink = investments[i].relationships.invested_in.properties.permalink;
+		          }
 
-          $scope.investments = investments;
+		          $scope.investments = investments;
+		          
     	},function(err){
     		console.log(err);
     		$scope.nameError = true;
@@ -150,21 +199,22 @@ app.controller('DashC',function($scope,dash, $stateParams,$state,$http,crunch,us
     }
 
     crunch.getInfo('mark' , 'cuban')
-    .then(function(response){
+    	.then(function(response){
     	var investments = response.data.data.relationships.investments.items;
     	for(var i = 0; i < investments.length; i++ ){
-    		         investments[i].raised = investments[i].relationships.funding_round.properties.money_raised;
+    		investments[i].raised = investments[i].relationships.funding_round.properties.money_raised;
     		investments[i].minEmployees = investments[i].relationships.invested_in.properties.num_employees_min;
     		investments[i].maxEmployees = investments[i].relationships.invested_in.properties.num_employees_max;
     		investments[i].name = investments[i].relationships.invested_in.properties.name;
-    		investments[i].description = investments[i].relationships.invested_in.properties.short_description;
-    		
+    		investments[i].description = investments[i].relationships.invested_in.properties.short_description;	
+    		investments[i].permalink = investments[i].relationships.invested_in.properties.permalink;
+
     	}
-    	// console.log(investments);
+    	// console.log(invokesvestments);
     	$scope.investments = investments;
 
     	var founded_companies = response.data.data.relationships.founded_companies.items;
-    	console.log(founded_companies);
+    	// console.log(founded_companies);
     	$scope.founded_companies = founded_companies;
 		// $scope.founded_companies = response.data.data.relationships.founded_companies.items;
 		// console.log(response.data.data.relationships.founded_companies.items);

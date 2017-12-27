@@ -17,7 +17,7 @@
 
 <!-- START OF SIDENAV -->
 
-  <md-sidenav   layout="column"  class="md-sidenav-left md-whiteframe-z2"    md-is-locked-open="$mdMedia('gt-md')" >
+  <md-sidenav   layout="column"  class="md-sidenav-left md-whiteframe-z2" opened="true"   md-is-locked-open="$mdMedia('gt-md')" >
             <md-list>  
 
               <md-item ng-repeat="item in menu" md-ink-ripple layout="column" class="md-padding">
@@ -37,7 +37,8 @@
               </md-item>
                <md-item  md-ink-ripple layout="column" class="md-padding"> 
               
-		                <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank">
+		            <!--     <a href="https://livestream-srv.herokuapp.com/demos/Video-Broadcasting.html" target="blank"> -->
+		                <a href="http://localhost:9001/demos/video-broadcasting.html" target="blank">
 		                	 	<md-tooltip
 			              md-direction="right">
 			              Admin
@@ -160,12 +161,12 @@
 
 <!-- PORTFOLIO START -->
 
-            <div layout="column" style="padding-right: 30px;padding-left: 30px">
+            <div layout="column" flex style="padding-right: 30px;padding-left: 30px">
                   <div> 
                       <h1 >Portfolio</h1>
                  </div>
                   <!-- search for new data -->
-                   <div layout="row" flex>
+                   <div layout="row" >
 
                     <form ng-submit="getData(newUser)">
                       <md-input-container flex="33"  md-no-float class="md-block">
@@ -182,6 +183,10 @@
                         <div >
                           <md-button md-no-ink ng-click="getData(newUser)">
                             <md-icon class="material-icons">search</md-icon>
+                            <md-tooltip
+					              md-direction="top">
+					              click, or hit ENTER key
+			                </md-tooltip>
                           </md-button>
                         </div>
 
@@ -199,7 +204,7 @@
                                           <!-- <div class="col-md-6"> -->
                                             <table ng-table="tableParams"  class="table table-condensed table-bordered table-striped">
                                               <tr ng-repeat="i in investments" >
-                                                <td ng-click="show(i)" data-title="'Name'">
+                                                <td ng-click="compare(i)" data-title="'Name'">
                                                 	<a>{{i.name}}</a>
                                                 	 <md-tooltip
 											              md-direction="top">
